@@ -2,6 +2,7 @@ import React from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../Context/CartContext";
+import { toINR } from "../utils/price";
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate()
@@ -10,13 +11,13 @@ const ProductCard = ({ product }) => {
     
   return (
     <div
-      className="group relative bg-white border border-gray-100
+      className="group relative theme-card
       rounded-2xl overflow-hidden
       hover:shadow-2xl hover:-translate-y-1
       transition-all duration-300" 
     >
       {/* IMAGE */}
-      <div className="relative bg-gray-100 aspect-square overflow-hidden" onClick={()=>navigate(`/products/${product.id}`)}>
+      <div className="relative theme-surface aspect-square overflow-hidden" onClick={()=>navigate(`/products/${product.id}`)}>
         { /* agar image array hai to image, wrna thumbnail wrna img */ }
         <img
               
@@ -33,9 +34,9 @@ const ProductCard = ({ product }) => {
           flex items-center justify-center"
         >
           <button
-            className="bg-red-500 text-white px-4 py-2 rounded-full
-            flex items-center gap-2 font-semibold
-            hover:bg-red-600 transition"
+            className="theme-button btn-primary px-4 py-2
+            flex items-center gap-2
+            transition"
             onClick={()=>addToCart(product)}
           >
             <IoCartOutline className="w-5 h-5 "  />
@@ -46,20 +47,20 @@ const ProductCard = ({ product }) => {
 
       {/* CONTENT */}
       <div className="p-4 space-y-2">
-        <h1 className="line-clamp-2 font-semibold text-gray-800">
+        <h1 className="line-clamp-2 font-semibold theme-text">
           {product.title}
         </h1>
 
         <div className="flex items-center justify-between">
-          <p className="text-xl font-bold text-red-500">
-            ${product.price}
+          <p className="text-xl font-bold text-primary">
+            {toINR(product.price)}
           </p>
 
           {/* Optional rating */}
            { /* agar product rating hai to show */ }
           {product.rating && (
-            <span className="text-sm text-gray-500">
-              ⭐ {product.rating}
+            <span className="text-sm text-muted">
+              Rating: {product.rating}
             </span>
           )}
         </div>

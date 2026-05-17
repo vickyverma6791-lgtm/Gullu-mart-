@@ -38,7 +38,7 @@ const About = () => {
           
           <div className="p-8 rounded-2xl bg-gradient-to-br from-red-50 to-purple-50">
             <h2 className="text-2xl font-bold text-red-600 mb-3">
-              🚀 Our Mission
+              Our Mission
             </h2>
             <p className="text-gray-700">
               Our mission is simple: make high-quality technology accessible to
@@ -49,7 +49,7 @@ const About = () => {
 
           <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-red-50">
             <h2 className="text-2xl font-bold text-red-600 mb-3">
-              🌍 Our Vision
+              Our Vision
             </h2>
             <p className="text-gray-700">
               We envision a future where technology seamlessly improves everyday
@@ -107,7 +107,7 @@ const About = () => {
               text-white px-8 py-3 rounded-full font-semibold
               hover:scale-105 hover:shadow-lg transition-all duration-300"
             >
-              Start Shopping 🚀
+              Start Shopping
             </button>
           </Link>
         </div>

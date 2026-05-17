@@ -2,8 +2,7 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e]
-    flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen theme-page flex items-center justify-center px-4 py-16">
       
       <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 
       rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,0.5)]
@@ -35,20 +34,20 @@ const Contact = () => {
 
             <div className="space-y-4 text-gray-200">
               <p className="flex items-center gap-3">
-                <span className="text-xl">📍</span> 123 Tech Lane, Kolkata, India
+                Location: 123 Tech Lane, Kolkata, India
               </p>
               <p className="flex items-center gap-3">
-                <span className="text-xl">📧</span> support@gullumart.com
+                Email: support@gullumart.com
               </p>
               <p className="flex items-center gap-3">
-                <span className="text-xl">📞</span> +91 98765 43210
+                Phone: +91 98765 43210
               </p>
             </div>
 
             <div className="pt-6 border-t border-white/20">
               <p className="text-sm text-gray-300">
-                ⏱️ Support available 24/7 <br />
-                ⚡ Average response time: under 2 hours
+                Support available 24/7 <br />
+                Average response time: under 2 hours
               </p>
             </div>
           </div>
@@ -99,12 +98,12 @@ const Contact = () => {
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-red-500 to-purple-500
-              text-white font-semibold py-3 rounded-2xl
+              className="w-full theme-button btn-primary
+              font-semibold py-3 rounded-2xl
               hover:scale-[1.02] hover:shadow-[0_10px_30px_rgba(239,68,68,0.5)]
               transition-all duration-300"
             >
-              Send Message 🚀
+              Send Message
             </button>
           </form>
         </div>

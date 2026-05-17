@@ -5,6 +5,7 @@ import { LuNotebookText } from 'react-icons/lu'
 import { MdDeliveryDining } from 'react-icons/md'
 import { GiShoppingBag } from 'react-icons/gi'
 import { toast } from 'react-toastify'
+import { toINR } from '../utils/price'
 
 const Cart = ({location,Getloaction}) => {
   const { cartItem, setcartItem } = useCart()
@@ -17,7 +18,7 @@ const Cart = ({location,Getloaction}) => {
   const totalPrice =  cartItem.reduce((total,curtItem)=> total + curtItem.price,0)
 
   return (
-  <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12">
+  <div className="min-h-screen theme-page py-12">
     <div className="max-w-6xl mx-auto px-4">
 
       {cartItem.length > 0 ? (
@@ -37,7 +38,7 @@ const Cart = ({location,Getloaction}) => {
             {cartItem.map(item => (
               <div
                 key={item.id}
-                className="bg-white rounded-xl shadow-md hover:shadow-xl transition p-5 flex justify-between items-center"
+                className="theme-card hover:shadow-xl transition p-5 flex justify-between items-center"
               >
                 {/* LEFT */}
                 <div className="flex gap-5 items-center">
@@ -47,21 +48,21 @@ const Cart = ({location,Getloaction}) => {
                   />
 
                   <div>
-                    <h2 className="font-semibold text-lg text-gray-800">
+                    <h2 className="font-semibold text-lg theme-text">
                       {item.title}
                     </h2>
-                    <p className="text-sm text-gray-500">{item.brand}</p>
-                    <p className="text-green-600 font-bold mt-1">
-                      ${item.price}
+                    <p className="text-sm text-muted">{item.brand}</p>
+                    <p className="text-primary font-bold mt-1">
+                      {toINR(item.price)}
                     </p>
                   </div>
                 </div>
 
                 {/* QTY */}
-                <div className="flex items-center bg-gray-100 rounded-lg overflow-auto">
-                  <button className="px-4 py-2 text-xl font-bold hover:bg-gray-200">−</button>
+                <div className="flex items-center theme-surface rounded-lg overflow-auto">
+                  <button className="px-4 py-2 text-xl font-bold hover:bg-surface">−</button>
                   <span className="px-4 font-semibold">{item.qty || 1}</span>
-                  <button className="px-4 py-2 text-xl font-bold hover:bg-gray-200">+</button>
+                  <button className="px-4 py-2 text-xl font-bold hover:bg-surface">+</button>
                 </div>
 
                 {/* DELETE */}
@@ -79,9 +80,9 @@ const Cart = ({location,Getloaction}) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-14">
 
             {/* DELIVERY INFO */}
-            <div className="bg-white rounded-xl shadow-md p-7 space-y-5">
-              <h2 className="text-2xl font-bold text-gray-800">
-                🚚 Delivery Information
+            <div className="theme-card p-7 space-y-5">
+              <h2 className="text-2xl font-bold theme-text">
+                Delivery Information
               </h2>
 
               <input className="input" placeholder="Full Name" />
@@ -100,7 +101,7 @@ const Cart = ({location,Getloaction}) => {
 
               <input className="input" placeholder="Pincode" />
 
-              <button className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition">
+              <button className="w-full theme-button btn-primary py-3 rounded-lg font-semibold transition">
                 Place Order
               </button>
 
@@ -108,7 +109,7 @@ const Cart = ({location,Getloaction}) => {
                 <p className="text-gray-400">— OR —</p>
                 <button
                   onClick={Getloaction}
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                  className="theme-button btn-primary px-4 py-2 rounded-lg"
                 >
                   Detect Location
                 </button>
@@ -116,37 +117,37 @@ const Cart = ({location,Getloaction}) => {
             </div>
 
             {/* BILL DETAILS */}
-            <div className="bg-white rounded-xl shadow-md p-7 space-y-4 h-fit">
-              <h2 className="text-xl font-bold text-gray-800">
-                🧾 Bill Details
+            <div className="theme-card p-7 space-y-4 h-fit">
+<h2 className="text-xl font-bold theme-text">
+                Bill Details
               </h2>
 
               <div className="flex justify-between text-gray-700">
                 <span className="flex gap-2 items-center">
                   <LuNotebookText /> Items Total
                 </span>
-                <span>${totalPrice}</span>
+                <span>{toINR(totalPrice)}</span>
               </div>
 
               <div className="flex justify-between text-gray-700">
                 <span className="flex gap-2 items-center">
                   <MdDeliveryDining /> Delivery
                 </span>
-                <span className="text-green-600 font-semibold">FREE</span>
+                <span className="text-success font-semibold">FREE</span>
               </div>
 
               <div className="flex justify-between text-gray-700">
                 <span className="flex gap-2 items-center">
                   <GiShoppingBag /> Handling
                 </span>
-                <span>$5</span>
+                <span>{toINR(5)}</span>
               </div>
 
               <hr />
 
               <div className="flex justify-between text-lg font-bold">
                 <span>Grand Total</span>
-                <span>${totalPrice + 5}</span>
+                <span>{toINR(totalPrice + 5)}</span>
               </div>
 
               {/* COUPON */}
@@ -162,7 +163,7 @@ const Cart = ({location,Getloaction}) => {
                 </div>
               </div>
 
-              <button className="w-full bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 mt-5">
+              <button className="w-full theme-button btn-primary py-3 rounded-lg font-semibold mt-5">
                 Proceed to Checkout
               </button>
             </div>
@@ -170,7 +171,7 @@ const Cart = ({location,Getloaction}) => {
         </>
       ) : (
         <div className="text-center mt-24">
-          <h1 className="text-4xl font-bold text-gray-400">🛒 Cart is Empty</h1>
+          <h1 className="text-4xl font-bold text-gray-400">Cart is Empty</h1>
           <p className="text-gray-500 mt-2">Add some products to continue</p>
         </div>
       )}

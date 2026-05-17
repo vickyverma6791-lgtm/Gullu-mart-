@@ -104,7 +104,7 @@ const Carousel = () => {
                   "
                   onClick={()=>navigate(`/products/${item.id}`)}
                 >
-                  Shop Now 🚀
+                  Shop Now
                 </button>
               </div>
 

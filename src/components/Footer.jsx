@@ -31,9 +31,9 @@ const Footer = () => {
           <p className="text-sm text-gray-400 leading-relaxed">
             Powering your world with the best in electronics.
           </p>
-          <p className="text-sm">📍 123 Electronics St, NY</p>
-          <p className="text-sm">📧 support@gullu.com</p>
-          <p className="text-sm">📞 +1 374 444 4444</p>
+          <p className="text-sm">123 Electronics St, NY</p>
+          <p className="text-sm">support@gullu.com</p>
+          <p className="text-sm">+1 374 444 4444</p>
         </div>
 
         {/* CUSTOMER SERVICE */}
@@ -111,7 +111,7 @@ const Footer = () => {
             />
             <button
               type="submit"
-              className="bg-gradient-to-r from-red-500 to-purple-500 px-5 py-3 rounded-r-xl text-white hover:opacity-90 transition"
+              className="theme-button btn-primary px-5 py-3 rounded-r-xl text-white transition"
             >
               Subscribe
             </button>

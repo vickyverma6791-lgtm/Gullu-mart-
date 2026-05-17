@@ -13,10 +13,10 @@ const Navbar = ({ location, Getlocation }) => {
   const navLinkStyle = ({ isActive }) =>
     `relative px-2 pb-1 text-lg font-semibold
      transition-all duration-300
-     ${isActive ? "text-red-500" : "text-gray-800 hover:text-red-500"}`;
+     ${isActive ? "text-primary" : "theme-text hover:text-primary"}`;
 
   const underlineStyle = (isActive) =>
-    `absolute left-0 -bottom-1 h-[3px] bg-red-500 rounded-full
+    `absolute left-0 -bottom-1 h-[3px] bg-primary rounded-full
      transition-all duration-300
      ${isActive ? "w-full" : "w-0 group-hover:w-full"}`;
 
@@ -42,15 +42,15 @@ const Navbar = ({ location, Getlocation }) => {
           <div className="relative">
             <div
               className="flex items-center gap-2 cursor-pointer
-              bg-gray-100 px-3 py-2 rounded-xl hover:bg-gray-200 transition"
+              theme-surface px-3 py-2 rounded-xl hover:bg-surface transition"
               onClick={() => setopenDropdown(!openDropdown)}
             >
-              <MapPin className="text-red-500" />
-              <div className="text-sm font-semibold text-gray-800 leading-tight">
+              <MapPin className="text-primary" />
+              <div className="text-sm font-semibold theme-text leading-tight">
                 {location ? (
                   <>
                     <p>{location.city}</p>
-                    <p className="text-xs text-gray-500">{location.country}</p>
+                    <p className="text-xs text-muted">{location.country}</p>
                   </>
                 ) : (
                   <p>Add Address</p>
@@ -63,7 +63,7 @@ const Navbar = ({ location, Getlocation }) => {
             {openDropdown && (
               <div
                 className="absolute top-14 left-0 w-[260px]
-                bg-white rounded-xl shadow-2xl border p-5
+                theme-card border-theme p-5
                 animate-fadeIn"
               >
                 <div className="flex justify-between items-center mb-4">
@@ -76,8 +76,7 @@ const Navbar = ({ location, Getlocation }) => {
 
                 <button
                   onClick={Getlocation}
-                  className="w-full bg-red-500 text-white py-2 rounded-lg
-                  hover:bg-red-600 transition"
+                  className="w-full theme-button btn-primary py-2 rounded-lg"
                 >
                   Detect my location
                 </button>
@@ -109,8 +108,8 @@ const Navbar = ({ location, Getlocation }) => {
           {/* CART */}
           <Link to="/cart" className="relative group">
             <div
-              className="p-3 bg-gray-100 rounded-full
-              hover:bg-red-100 transition"
+              className="p-3 theme-surface rounded-full
+              hover:bg-surface transition"
             >
               <IoCartOutline className="h-6 w-6 text-gray-800 group-hover:text-red-500" />
             </div>
@@ -125,8 +124,8 @@ const Navbar = ({ location, Getlocation }) => {
                   <Link
             to="/login"
             className="flex items-center gap-2 px-3 py-2
-            bg-gray-100 rounded-full cursor-pointer
-            hover:bg-gray-200 transition group"
+            theme-surface rounded-full cursor-pointer
+            hover:bg-surface transition group"
           >
             {/* Avatar Circle */}
             <div
@@ -138,7 +137,7 @@ const Navbar = ({ location, Getlocation }) => {
             </div>
 
             {/* Text */}
-            <span className="font-semibold text-gray-800 group-hover:text-red-500">
+            <span className="font-semibold theme-text group-hover:text-primary">
               Login
             </span>
           </Link>
