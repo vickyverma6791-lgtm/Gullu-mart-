@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 
 const Loginpg = () => {
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -17,15 +19,12 @@ const Loginpg = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (isLogin) {
-      console.log("LOGIN DATA", formData);
-    } else {
-      console.log("SIGNUP DATA", formData);
-    }
-
-    // later: set user in context
-    navigate("/"); // redirect home
+    // Store user in AuthContext (real apps would call an API here)
+    login({
+      name: formData.name || formData.email.split("@")[0],
+      email: formData.email,
+    });
+    navigate("/");
   };
 
   return (
@@ -117,3 +116,4 @@ const Loginpg = () => {
 };
 
 export default Loginpg;
+

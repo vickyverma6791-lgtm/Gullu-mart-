@@ -1,18 +1,28 @@
 import axios from "axios";
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    fetchingAllProduct();
+  }, []);
 
   const fetchingAllProduct = async () => {
     try {
+      setIsLoading(true);
+      setIsError(false);
       const res = await axios.get("https://dummyjson.com/products?limit=100");
-      setData(res.data.products); 
-      console.log(res.data)      // 👈 yahi main line hai
+      setData(res.data.products);
     } catch (error) {
-      console.log(error);
+      setIsError(true);
+      console.error("Failed to fetch products:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
   
@@ -25,12 +35,11 @@ export const DataProvider = ({ children }) => {
   };
 
   const categoryOnlyData = getuniqueCategory(data, "category");
-  console.log(categoryOnlyData);
 
   const BrandOnlyData = getuniqueCategory(data,"brand")
 
   return (
-    <DataContext.Provider value={{ data, fetchingAllProduct ,categoryOnlyData,BrandOnlyData}}>
+    <DataContext.Provider value={{ data, fetchingAllProduct, categoryOnlyData, BrandOnlyData, isLoading, isError }}>
       {children}
     </DataContext.Provider>
   );

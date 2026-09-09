@@ -12,9 +12,10 @@ import { toINR } from "../utils/price";
 const Singlepages = () => {
   const { id } = useParams();
   const [singleproduct, setSingleproduct] = useState(null);
+  const [selectedImg, setSelectedImg] = useState(null);
+  const [qty, setQty] = useState(1);
   const navigate = useNavigate();
-  const {addToCart} = useCart()
-
+  const { addToCart } = useCart();
 
   const getsingleproduct = async () => {
     try {
@@ -22,13 +23,15 @@ const Singlepages = () => {
         `https://dummyjson.com/products/${id}`
       );
       setSingleproduct(res.data);
+      setSelectedImg(res.data.images?.[0] || res.data.thumbnail);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   useEffect(() => {
     getsingleproduct();
+    setQty(1);
   }, [id]);
 
   if (!singleproduct) {
@@ -47,6 +50,10 @@ const Singlepages = () => {
       (singleproduct.price * singleproduct.discountPercentage) / 100
   );
 
+  const images = singleproduct.images?.length
+    ? singleproduct.images
+    : [singleproduct.thumbnail];
+
   return (
     <div className="theme-page min-h-screen px-4 py-6 md:px-8">
       
@@ -64,13 +71,34 @@ const Singlepages = () => {
       <div className="max-w-6xl mx-auto theme-card shadow-xl p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
 
         {/* IMAGE SECTION */}
-        <div className="theme-surface rounded-2xl p-6 flex items-center justify-center">
-          <img
-            src={singleproduct.thumbnail}
-            alt={singleproduct.title}
-            className="w-full max-h-[420px] object-contain
-                       hover:scale-105 transition-transform duration-500"
-          />
+        <div className="flex flex-col gap-4">
+          {/* Main Image */}
+          <div className="theme-surface rounded-2xl p-6 flex items-center justify-center">
+            <img
+              src={selectedImg}
+              alt={singleproduct.title}
+              className="w-full max-h-[420px] object-contain
+                         hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          {/* Thumbnails */}
+          {images.length > 1 && (
+            <div className="flex gap-3 flex-wrap justify-center">
+              {images.map((img, i) => (
+                <img
+                  key={i}
+                  src={img}
+                  alt={`thumb-${i}`}
+                  onClick={() => setSelectedImg(img)}
+                  className={`w-16 h-16 rounded-lg object-cover cursor-pointer border-2 transition
+                    ${selectedImg === img
+                      ? "border-primary shadow-md scale-105"
+                      : "border-transparent hover:border-gray-300"
+                    }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* DETAILS SECTION */}
@@ -116,13 +144,17 @@ const Singlepages = () => {
             <label className="text-sm font-medium text-gray-700">
               Quantity
             </label>
-            <input
-              type="number"
-              min={1}
-              defaultValue={1}
-              className="w-20 input-base px-3 py-1
-                         focus:outline-none"
-            />
+            <div className="flex items-center theme-surface rounded-lg overflow-hidden border border-theme">
+              <button
+                onClick={() => setQty(q => Math.max(1, q - 1))}
+                className="px-4 py-2 text-xl font-bold hover:bg-surface transition"
+              >−</button>
+              <span className="px-5 font-semibold">{qty}</span>
+              <button
+                onClick={() => setQty(q => q + 1)}
+                className="px-4 py-2 text-xl font-bold hover:bg-surface transition"
+              >+</button>
+            </div>
           </div>
 
           {/* ACTION BUTTONS */}
@@ -131,7 +163,7 @@ const Singlepages = () => {
               className="theme-button btn-primary flex items-center gap-2 px-8 py-3 rounded-xl
                          font-semibold text-lg
                          transition-all duration-300"
-              onClick={()=>addToCart(singleproduct)}           
+              onClick={() => addToCart(singleproduct, qty)}           
             >
               <IoCartOutline className="w-6 h-6" />
               Add to Cart
@@ -145,3 +177,4 @@ const Singlepages = () => {
 };
 
 export default Singlepages;
+

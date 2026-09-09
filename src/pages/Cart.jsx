@@ -8,14 +8,14 @@ import { toast } from 'react-toastify'
 import { toINR } from '../utils/price'
 
 const Cart = ({location,Getloaction}) => {
-  const { cartItem, setcartItem } = useCart()
+  const { cartItem, setcartItem, increaseQty, decreaseQty } = useCart()
 
   const removeItem = (id) => {
     setcartItem(cartItem.filter(item => item.id !== id))
     toast.success("Product is deleted from cart!")
   }
 
-  const totalPrice =  cartItem.reduce((total,curtItem)=> total + curtItem.price,0)
+  const totalPrice = cartItem.reduce((total, curtItem) => total + curtItem.price * curtItem.qty, 0)
 
   return (
   <div className="min-h-screen theme-page py-12">
@@ -36,8 +36,7 @@ const Cart = ({location,Getloaction}) => {
           {/* CART ITEMS */}
           <div className="space-y-6">
             {cartItem.map(item => (
-              <div
-                key={item.id}
+              <div key={item.id}
                 className="theme-card hover:shadow-xl transition p-5 flex justify-between items-center"
               >
                 {/* LEFT */}
@@ -59,10 +58,16 @@ const Cart = ({location,Getloaction}) => {
                 </div>
 
                 {/* QTY */}
-                <div className="flex items-center theme-surface rounded-lg overflow-auto">
-                  <button className="px-4 py-2 text-xl font-bold hover:bg-surface">−</button>
-                  <span className="px-4 font-semibold">{item.qty || 1}</span>
-                  <button className="px-4 py-2 text-xl font-bold hover:bg-surface">+</button>
+                <div className="flex items-center theme-surface rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => decreaseQty(item.id)}
+                    className="px-4 py-2 text-xl font-bold hover:bg-surface transition"
+                  >−</button>
+                  <span className="px-4 font-semibold">{item.qty}</span>
+                  <button
+                    onClick={() => increaseQty(item.id)}
+                    className="px-4 py-2 text-xl font-bold hover:bg-surface transition"
+                  >+</button>
                 </div>
 
                 {/* DELETE */}
@@ -91,12 +96,14 @@ const Cart = ({location,Getloaction}) => {
               <textarea
                 rows="3"
                 className="input"
-                value={`${location.city}, ${location.principalSubdivision}, ${location.countryName}`}
+                readOnly
+                placeholder="Your location will appear here"
+                value={location ? `${location.city ?? ''}, ${location.principalSubdivision ?? ''}, ${location.countryName ?? ''}` : ''}
               />
 
               <div className="grid grid-cols-2 gap-4">
-                <input className="input" value={location.city} />
-                <input className="input" value={location.principalSubdivision} />
+                <input className="input" readOnly placeholder="City" value={location?.city ?? ''} />
+                <input className="input" readOnly placeholder="State" value={location?.principalSubdivision ?? ''} />
               </div>
 
               <input className="input" placeholder="Pincode" />
@@ -110,8 +117,9 @@ const Cart = ({location,Getloaction}) => {
                 <button
                   onClick={Getloaction}
                   className="theme-button btn-primary px-4 py-2 rounded-lg"
+                  disabled={!Getloaction}
                 >
-                  Detect Location
+                  {location ? 'Update Location' : 'Detect Location'}
                 </button>
               </div>
             </div>
@@ -176,21 +184,6 @@ const Cart = ({location,Getloaction}) => {
         </div>
       )}
     </div>
-
-    {/* INPUT STYLE */}
-    <style>
-      {`
-        .input{
-          padding:10px;
-          border-radius:10px;
-          border:1px solid #ddd;
-          outline:none;
-        }
-        .input:focus{
-          border-color:#000;
-        }
-      `}
-    </style>
   </div>
 )
 

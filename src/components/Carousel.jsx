@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Getdata } from "../Context/Datacontext";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -8,13 +8,8 @@ import Category from "./Category";
 import { useNavigate } from "react-router-dom";
 
 const Carousel = () => {
-  const { data, fetchingAllProduct } = Getdata();
-
-  const navigate =useNavigate()
-
-  useEffect(() => {
-    fetchingAllProduct();
-  }, []);
+  const { data } = Getdata();
+  const navigate = useNavigate()
 
   /* ---------- CUSTOM ARROWS ---------- */
   const ArrowBase =

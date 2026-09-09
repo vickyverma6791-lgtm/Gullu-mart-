@@ -12,6 +12,8 @@ import Singlepages from './pages/Singlepages'
 import CategoryProduct from './pages/CategoryProduct'
 import Loginpg from './pages/Loginpg'
 import SignUp from './pages/SignUp'
+import NotFound from './pages/NotFound'
+import { AuthProvider } from './Context/AuthContext'
 const App = () => {
 
     const[location,setlocation]= useState(null)
@@ -19,9 +21,7 @@ const App = () => {
     const fetchlocation = async()=>{
       try{
         const data = await Getloaction();
-        console.log("data aaya", data)
         setlocation(data)
-        console.log(data)
       }catch(err){
         console.log("errror",err)
       }
@@ -30,6 +30,7 @@ const App = () => {
   },[])
   
   return (
+    <AuthProvider>
     <BrowserRouter>
     <Navbar location={location} getloaction ={Getloaction}/>
       <Routes>
@@ -42,9 +43,11 @@ const App = () => {
         <Route path='/about' element={<About/>}></Route>
         <Route path='/contact' element={<Contact/>}></Route>
         <Route path='/cart' element={<Cart location={location} getloaction ={Getloaction}/>}></Route>
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
       <Footer/>
     </BrowserRouter>
+    </AuthProvider>
   )
 }
 

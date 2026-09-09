@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Getdata } from "../Context/Datacontext";
 import load from "../assets/Loading4.webm";
 import FilterSection from "../components/FilterSection";
 import ProductCard from "../components/ProductCard";
 
 const Products = () => {
-  const { data, fetchingAllProduct } = Getdata();
+  const { data } = Getdata();
 
   const [search, setsearch] = useState("");
   const [category, setcategory] = useState("All");
   const [Brand, setBrand] = useState("All");
   const [priceRan, setpriceRan] = useState([0, 5000]);
 
-  useEffect(() => {
-    fetchingAllProduct();
-  }, []);
 
   const filtereddata = data?.filter(
     (item) =>

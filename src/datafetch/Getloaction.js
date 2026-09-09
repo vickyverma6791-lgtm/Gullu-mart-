@@ -10,12 +10,10 @@ const Getloaction = async () => {
   });
 
   const { latitude, longitude } = position.coords;
-  console.log(latitude,longitude)
 
   const response = await axios.get(
    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
   );
-  console.log( "my data",response.data)
   return response.data;
 };
 

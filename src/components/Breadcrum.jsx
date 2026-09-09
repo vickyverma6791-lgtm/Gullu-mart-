@@ -1,15 +1,17 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { ChevronRight } from 'lucide-react'
 
-const Breadcrum = ({title}) => {
-    const navigate =useNavigate()
+const Breadcrum = ({ title }) => {
   return (
-    <div className='max-w-6xl mx-auto my-10'>
-        <h1 className='text-xl text-gray-700 font-semibold'>
-            <span className='cursor-pointer' onClick={()=>navigate('/')}>Home</span> / 
-            <span className='cursor-pointer'onClick={()=>navigate('/products')}>Products</span> /
-            <span>{title}</span></h1>
-      
+    <div className='max-w-6xl mx-auto my-6'>
+      <nav className='flex items-center gap-2 text-sm text-muted flex-wrap'>
+        <Link to='/' className='hover:text-primary transition font-medium'>Home</Link>
+        <ChevronRight size={14} />
+        <Link to='/products' className='hover:text-primary transition font-medium'>Products</Link>
+        <ChevronRight size={14} />
+        <span className='text-gray-900 font-semibold line-clamp-1 max-w-[300px]'>{title}</span>
+      </nav>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Getdata } from "../Context/Datacontext";
+import { toINR } from "../utils/price";
 
 const FilterSection = ({
   search,
@@ -84,7 +85,7 @@ const FilterSection = ({
       </h2>
       <div className="mt-3 text-gray-700 text-sm">
         <p className="mb-1 font-medium">
-          ${priceRan[0]} – ${priceRan[1]}
+          {toINR(priceRan[0])} – {toINR(priceRan[1])}
         </p>
         <input
           type="range"
